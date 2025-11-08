@@ -8,6 +8,13 @@
       "when": 1750791877379,
       "tag": "0000_crazy_rockslide",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1762335173755,
+      "tag": "0001_remarkable_sunspot",
+      "breakpoints": true
     }
   ]
 }
