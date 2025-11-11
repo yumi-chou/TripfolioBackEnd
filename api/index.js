@@ -66,7 +66,7 @@ const r = p => path.join(__dirname, '..', 'src', 'routes', p);
 
 app.use('/api/signup', require(r('authRoutes')));
 app.use('/api/login', require(r('loginRoutes')));
-app.use('/auth', require(r('oAuthRoute')));
+app.use('/api/auth', require(r('oAuthRoute')));
 app.use('/api', require(r('protectedRoutes')));
 app.use('/api/profile', require(r('profileRoutes')));
 app.use('/api/itinerary', require(r('itinerary')));
@@ -87,6 +87,7 @@ app.use('/api/traffic', require(r('trafficData')));
 app.get('/api/health', (_req, res) => {
   res.json({ status: 'ok', message: 'Backend is alive 🚀' });
 });
+app.get('/favicon.ico', (_, res) => res.status(204).end());
 
 module.exports = app;
 
