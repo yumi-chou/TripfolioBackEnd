@@ -3,7 +3,7 @@ const { sendEmail } = require('../utils/emailSender');
 const { emails } = require('../models/emailsSchema');
 const { users } = require('../models/usersSchema');
 const { eq } = require('drizzle-orm');
-// 取得使用者 Email
+
 async function getUserEmail(userId) {
   try {
     const result = await db.select({ email: users.email }).from(users).where(eq(users.id, userId));
@@ -13,7 +13,6 @@ async function getUserEmail(userId) {
   }
 }
 
-// 共用偏好檢查邏輯
 async function isPreferenceEnabled(userId, field) {
   try {
     const pref = await db.select().from(emails).where(eq(emails.userId, userId));
@@ -23,8 +22,6 @@ async function isPreferenceEnabled(userId, field) {
   }
 }
 
-// 各類通知函式
-
 async function notifyRegister(userId) {
   try {
     if (!(await isPreferenceEnabled(userId, 'onRegister'))) return;
@@ -32,7 +29,6 @@ async function notifyRegister(userId) {
     if (!email) return;
     await sendEmail(email, '註冊成功通知', `<p>歡迎加入 Tripfolio！</p>`);
   } catch (err) {
-    // 郵件發送失敗，請稍後再試。
   }
 }
 
@@ -43,7 +39,6 @@ async function notifyLogin(userId) {
     if (!email) return;
     await sendEmail(email, '登入成功通知', `<p>您已成功登入 Tripfolio！</p>`);
   } catch (err) {
-    // 郵件發送失敗，請稍後再試。
   }
 }
 
@@ -54,7 +49,6 @@ async function notifyLoginfail(userId) {
     if (!email) return;
     await sendEmail(email, '登入失敗警示', `<p>⚠️ 偵測到異常登入失敗，請確認是否為本人操作。</p>`);
   } catch (err) {
-    // 郵件發送失敗，請稍後再試。
   }
 }
 
@@ -65,7 +59,6 @@ async function notifyCommented(userId, commentContent) {
     if (!email) return;
     await sendEmail(email, '您的貼文有新留言', `<p>留言內容：${commentContent}</p>`);
   } catch (err) {
-    // 郵件發送失敗，請稍後再試。
   }
 }
 
@@ -76,7 +69,6 @@ async function notifyBookmarked(userId, bookmarkerName) {
     if (!email) return;
     await sendEmail(email, '您的貼文被收藏', `<p>${bookmarkerName} 收藏了您的貼文。</p>`);
   } catch (err) {
-    // 郵件發送失敗，請稍後再試。
   }
 }
 

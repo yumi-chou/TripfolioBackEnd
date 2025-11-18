@@ -156,7 +156,6 @@ const getTravelScheduleById = async (req, res) => {
       return res.status(HTTP.NOT_FOUND).json({ message: '找不到行程' });
     }
 
-    // 權限檢查：只能看自己的
     if (schedule[0].userId !== memberId) {
       return res.status(HTTP.FORBIDDEN).json({ message: '無權限查看此行程' });
     }

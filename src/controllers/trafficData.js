@@ -2,7 +2,7 @@ const { db } = require("../config/db");
 const { trafficData } = require('../models/trafficData');
 const { eq , and } = require('drizzle-orm');
 const HTTP = require('../constants/httpStatus');
-// 新增一筆交通資料
+
 async function addTrafficData(req, res) {
   try {
     const {
@@ -50,7 +50,6 @@ async function addTrafficData(req, res) {
   }
 }
 
-// 查詢某行程下所有交通資料
 async function getTrafficData(req, res) {
   try {
     const { itineraryId } = req.query;
@@ -71,7 +70,6 @@ async function getTrafficData(req, res) {
   }
 }
 
-// 刪除交通資料
 async function deleteTrafficData(req, res) {
   try {
     const { itineraryId, fromPlaceId, toPlaceId } = req.query;

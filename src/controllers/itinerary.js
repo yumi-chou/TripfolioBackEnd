@@ -125,7 +125,6 @@ async function updateArriveTime(req, res) {
   }
 }
 
-//刪除交通
 async function deletePlaceById(req, res) {
   const { id } = req.query;
 

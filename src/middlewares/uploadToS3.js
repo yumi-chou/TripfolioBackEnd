@@ -33,7 +33,6 @@ function createS3Uploader(prefix) {
     },
   });
 
-  // 回傳 multer instance（可在路由繼續 .single('fieldName')）
   return uploader;
 }
 

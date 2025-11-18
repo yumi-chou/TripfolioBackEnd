@@ -6,7 +6,6 @@ const bcrypt = require('bcrypt');
 const validatePassword = require('../utils/validatePassword');
 const HTTP = require('../constants/httpStatus');
 
-// 抓取會員資料
 exports.getProfile = async (req, res) => {
   const userId = req.user.id;
   const result = await db
@@ -30,7 +29,6 @@ exports.getProfile = async (req, res) => {
   return res.json(result[0]);
 };
 
-// 會員資料修改
 exports.updateProfile = async (req, res) => {
   const userId = req.user.id;
   const { name, gender, phone, birthday } = req.body;
@@ -62,7 +60,6 @@ exports.updateProfile = async (req, res) => {
   }
 };
 
-// 大頭貼修改
 exports.uploadAvatar = async (req, res) => {
   const userId = req.user.id;
   const fileUrl = req.file.location;
@@ -71,7 +68,6 @@ exports.uploadAvatar = async (req, res) => {
   return res.json({ message: '上傳成功', path: fileUrl });
 };
 
-// 密碼修改與驗證舊密碼
 exports.updateUserPassword = async (req, res) => {
   const userId = req.user.id;
   const { oldPassword, newPassword } = req.body;
@@ -98,7 +94,6 @@ exports.updateUserPassword = async (req, res) => {
   return res.json({ message: '密碼更新成功' });
 };
 
-// 判斷是否需付費
 exports.isPremium = async (req, res) => {
   const userId = req.user?.id;
   if (!userId) {

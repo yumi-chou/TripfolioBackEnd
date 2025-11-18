@@ -9,7 +9,6 @@ const favorites = pgTable(
     createdAt: timestamp('created_at').defaultNow(),
   },
   (table) => ({
-    // 同一個使用者不能重複收藏同一篇貼文
     uniqueFavorite: unique().on(table.memberId, table.postId),
   }),
 );

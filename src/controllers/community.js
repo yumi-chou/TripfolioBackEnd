@@ -8,7 +8,6 @@ const { comments } = require('../models/commentsSchema');
 const { favorites } = require('../models/favoritesSchema');
 const { sql } = require('drizzle-orm');
 
-// 建立社群貼文
 async function createCommunityPost(req, res) {
   try {
     const memberId = req.user.id;
@@ -38,7 +37,6 @@ async function createCommunityPost(req, res) {
   }
 }
 
-// 取得所有社群貼文
 async function getAllCommunityPosts(req, res) {
   try {
     const allPosts = await db
@@ -57,10 +55,8 @@ async function getAllCommunityPosts(req, res) {
       .leftJoin(users, eq(posts.memberId, users.id))
       .orderBy(desc(posts.createdAt));
 
-    // 取得所有貼文 ID
     const postIds = allPosts.map((p) => p.postId);
 
-    // 查詢留言數
     const commentCounts = await db
       .select({
         postId: comments.postId,
@@ -70,7 +66,6 @@ async function getAllCommunityPosts(req, res) {
       .where(sql`${comments.postId} = ANY(${sql.array(postIds)})`)
       .groupBy(comments.postId);
 
-    // 查詢收藏數
     const favoriteCounts = await db
       .select({
         postId: favorites.postId,
@@ -80,11 +75,9 @@ async function getAllCommunityPosts(req, res) {
       .where(sql`${favorites.postId} = ANY(${sql.array(postIds)})`)
       .groupBy(favorites.postId);
 
-    // 建立留言數和收藏數的 Map
     const commentMap = Object.fromEntries(commentCounts.map((c) => [c.postId, Number(c.count)]));
     const favoriteMap = Object.fromEntries(favoriteCounts.map((f) => [f.postId, Number(f.count)]));
 
-    // 合併資料
     const enrichedPosts = allPosts.map((post) => ({
       ...post,
       commentCount: commentMap[post.postId] || 0,
@@ -101,7 +94,6 @@ async function getAllCommunityPosts(req, res) {
   }
 }
 
-// 更新社群貼文
 async function updateCommunityPost(req, res) {
   try {
     const postId = Number(req.params.id);
@@ -138,7 +130,6 @@ async function updateCommunityPost(req, res) {
   }
 }
 
-// 刪除社群貼文
 async function deleteCommunityPost(req, res) {
   try {
     const memberId = req.user.id;

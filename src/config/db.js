@@ -1,4 +1,3 @@
-// src/config/db.js
 const { Pool } = require('pg');
 const { drizzle } = require('drizzle-orm/node-postgres');
 

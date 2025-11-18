@@ -2,7 +2,7 @@ const { eq, desc } = require('drizzle-orm');
 const { db } = require('../config/db');
 const { schedules } = require('../models/scheduleSchema');
 const HTTP = require('../constants/httpStatus');
-//抓取會員資料庫行程
+
 const getSchedules = async (req, res) => {
   try {
     const userId = req.user.id;

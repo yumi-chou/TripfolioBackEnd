@@ -6,7 +6,6 @@ const { eq, and, desc } = require('drizzle-orm');
 const { schedules } = require('../models/scheduleSchema');
 const HTTP = require('../constants/httpStatus');
 
-// 新增收藏
 const addFavorite = async (req, res) => {
   try {
     const { postId, memberId } = req.body;
@@ -51,7 +50,6 @@ const addFavorite = async (req, res) => {
   }
 };
 
-// 移除收藏
 const removeFavorite = async (req, res) => {
   try {
     const postId = Number(req.params.postId);
@@ -74,7 +72,6 @@ const removeFavorite = async (req, res) => {
   }
 };
 
-// 取得所有收藏
 const getFavorites = async (req, res) => {
   try {
     const { memberId } = req.params;
@@ -87,7 +84,6 @@ const getFavorites = async (req, res) => {
         postTitle: schedules.title,
         postContent: posts.content,
         postImageUrl: posts.coverURL,
-        // postLikes: posts.likes,
         authorId: posts.memberId,
         authorName: users.name,
         authorAvatar: users.avatar,
@@ -107,7 +103,6 @@ const getFavorites = async (req, res) => {
   }
 };
 
-// 檢查是否已收藏
 const checkFavorite = async (req, res) => {
   try {
     const postId = Number(req.params.postId);
